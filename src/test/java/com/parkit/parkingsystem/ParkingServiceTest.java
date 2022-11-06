@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -67,11 +68,13 @@ public class ParkingServiceTest {
 
 	@Test
 	public void calculateDiscountForRegularUser() {
-		Date dateIn = new Date("12/12/2000 10h");
-		Date dateOut = new Date("12/12/2000 20h");
+		Calendar dateIn = Calendar.getInstance();
+		dateIn.set(2005, 6, 8, 12, 0, 0);
+		Calendar dateOut = Calendar.getInstance();
+		dateOut.set(2005, 6, 8, 22, 0, 0);
 
-		parkingService.processIncomingVehicle(dateIn);
-		parkingService.processExitingVehicle(dateOut);
+		parkingService.processIncomingVehicle(dateIn.getTime());
+		parkingService.processExitingVehicle(dateOut.getTime());
 
 		Ticket resTicket = ticketDAO.getTicket("ABCDEF");
 		System.out.println(resTicket.toString());

@@ -33,23 +33,35 @@ public class ParkingService {
 			ParkingSpot parkingSpot = this.getNextParkingNumberIfAvailable();
 			if (parkingSpot != null && parkingSpot.getId() > 0) {
 				String vehicleRegNumber = this.getVehichleRegNumber();
+
+				boolean alreadyVisited = false;
+				Ticket existingTicket = this.ticketDAO.getTicket(vehicleRegNumber);
+				if (existingTicket != null) {
+					alreadyVisited = true;
+				}
+
 				parkingSpot.setAvailable(false);
 				this.parkingSpotDAO.updateParking(parkingSpot);// allot this parking space and mark it's availability as
 																// false
 
-				Date inTime = new Date();
 				Ticket ticket = new Ticket();
 				// ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
 				// ticket.setId(ticketID);
 				ticket.setParkingSpot(parkingSpot);
 				ticket.setVehicleRegNumber(vehicleRegNumber);
 				ticket.setPrice(0);
-				ticket.setInTime(inTime);
+				ticket.setInTime(dateIn);
 				ticket.setOutTime(null);
+				ticket.setAlreadyVisited(alreadyVisited);
 				this.ticketDAO.saveTicket(ticket);
+				if (alreadyVisited) {
+					System.out.println(
+							"Welcome back! As a recurring user of our parking lot, you'll benefit from a 5% discount.");
+				}
+
 				System.out.println("Generated Ticket and saved in DB");
 				System.out.println("Please park your vehicle in spot number:" + parkingSpot.getId());
-				System.out.println("Recorded in-time for vehicle number:" + vehicleRegNumber + " is:" + inTime);
+				System.out.println("Recorded in-time for vehicle number:" + vehicleRegNumber + " is:" + dateIn);
 			}
 		} catch (Exception e) {
 			logger.error("Unable to process incoming vehicle", e);
@@ -103,8 +115,7 @@ public class ParkingService {
 		try {
 			String vehicleRegNumber = this.getVehichleRegNumber();
 			Ticket ticket = this.ticketDAO.getTicket(vehicleRegNumber);
-			Date outTime = new Date();
-			ticket.setOutTime(outTime);
+			ticket.setOutTime(dateOut);
 			fareCalculatorService.calculateFare(ticket);
 			if (this.ticketDAO.updateTicket(ticket)) {
 				ParkingSpot parkingSpot = ticket.getParkingSpot();
@@ -112,7 +123,7 @@ public class ParkingService {
 				this.parkingSpotDAO.updateParking(parkingSpot);
 				System.out.println("Please pay the parking fare:" + ticket.getPrice());
 				System.out.println(
-						"Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+						"Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + dateOut);
 			} else {
 				System.out.println("Unable to update ticket information. Error occurred");
 			}

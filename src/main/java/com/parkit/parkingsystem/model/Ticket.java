@@ -9,6 +9,15 @@ public class Ticket {
 	private double price;
 	private Date inTime;
 	private Date outTime;
+	private boolean alreadyVisited;
+
+	public boolean isAlreadyVisited() {
+		return this.alreadyVisited;
+	}
+
+	public void setAlreadyVisited(boolean alreadyVisited) {
+		this.alreadyVisited = alreadyVisited;
+	}
 
 	public int getId() {
 		return this.id;

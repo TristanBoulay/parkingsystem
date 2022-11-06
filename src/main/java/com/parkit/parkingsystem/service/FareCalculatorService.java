@@ -30,11 +30,19 @@ public class FareCalculatorService {
 
 		switch (ticket.getParkingSpot().getParkingType()) {
 		case CAR: {
-			ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
+			double price = duration * Fare.CAR_RATE_PER_HOUR;
+			if (ticket.isAlreadyVisited()) {
+				price = price - (price * 5 / 100);
+			}
+			ticket.setPrice(price);
 			break;
 		}
 		case BIKE: {
-			ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
+			double price = duration * Fare.BIKE_RATE_PER_HOUR;
+			if (ticket.isAlreadyVisited()) {
+				price = price - (price * 5 / 100);
+			}
+			ticket.setPrice(price);
 			break;
 		}
 		default:
