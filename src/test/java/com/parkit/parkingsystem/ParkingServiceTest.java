@@ -52,6 +52,7 @@ public class ParkingServiceTest {
 //	@Test
 //	public void processExitingVehicleTest() {
 //		Calendar dateOut = Calendar.getInstance();
+//		dateOut.set(2005, 6, 8, 22, 0, 0);
 //		parkingService.processExitingVehicle(dateOut.getTime());
 //		verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
 //	}
