@@ -12,16 +12,11 @@ public class FareCalculatorService {
 
 		long inHour = ticket.getInTime().getTime();
 		long outHour = ticket.getOutTime().getTime();
-		System.out.println(inHour);
-		System.out.println(outHour);
 
 		double durationMs = outHour - inHour;
 		double msToHours = 1000 * 60 * 60;
 
-		System.out.println(durationMs);
-		System.out.println(msToHours);
-		double duration = durationMs / msToHours;
-		System.out.println(duration);
+		int duration = (int) (durationMs / msToHours);
 
 		if (duration < 0.5) {
 			ticket.setPrice(0);
@@ -31,6 +26,10 @@ public class FareCalculatorService {
 		switch (ticket.getParkingSpot().getParkingType()) {
 		case CAR: {
 			double price = duration * Fare.CAR_RATE_PER_HOUR;
+			System.out.println("car price :");
+			System.out.println(price);
+			System.out.println("duration :");
+			System.out.println(duration);
 			if (ticket.isAlreadyVisited()) {
 				price = price - (price * 5 / 100);
 			}
