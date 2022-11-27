@@ -36,6 +36,7 @@ public class ParkingServiceTest {
 	@BeforeEach
 	private void setUpPerTest() {
 		try {
+
 			when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
 			when(inputReaderUtil.readSelection()).thenReturn(1);
 
@@ -48,14 +49,6 @@ public class ParkingServiceTest {
 			throw new RuntimeException("Failed to set up test mock objects");
 		}
 	}
-
-//	@Test
-//	public void processExitingVehicleTest() {
-//		Calendar dateOut = Calendar.getInstance();
-//		dateOut.set(2005, 6, 8, 22, 0, 0);
-//		parkingService.processExitingVehicle(dateOut.getTime());
-//		verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
-//	}
 
 	@Test
 	public void calculateDiscountForRegularUser() {

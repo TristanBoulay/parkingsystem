@@ -7,14 +7,29 @@
     <artifactId>parking-system</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
+	
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+         <revision>2.20</revision>
+    <changelist>-SNAPSHOT</changelist>
+    <jenkins.version>2.361.1</jenkins.version>
+    <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
+    <spotbugs.effort>Max</spotbugs.effort>
+    <spotbugs.threshold>Low</spotbugs.threshold>
     </properties>
+    
+    
 
     <dependencies>
+    	
+		<dependency>
+    		<groupId>org.jacoco</groupId>
+    		<artifactId>jacoco-maven-plugin</artifactId>
+    		<version>0.8.8</version>
+		</dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -48,12 +63,7 @@
             <version>2.23.4</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.5</version>
-            <type>maven-plugin</type>
-        </dependency>
+      
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
@@ -63,6 +73,22 @@
 
     <build>
         <plugins>
+        	<plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -88,14 +114,16 @@
                 </executions>
             </plugin>
             <plugin>
+            	
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.21.0</version>
+                <version>2.19.1</version>
+                
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.platform</groupId>
                         <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>1.2.0</version>
+                        <version>1.0.3</version>
                     </dependency>
                 </dependencies>
                 <configuration>
