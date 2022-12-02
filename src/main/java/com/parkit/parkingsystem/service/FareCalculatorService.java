@@ -9,19 +9,18 @@ public class FareCalculatorService {
 		if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
 			throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
 		}
-
+//		changement de la methode getHours avec la methode getTime qui nous donne un temps en
+//		milliseconde, donc plus precis pour calculer le temps passé dans le garage
 		long inHour = ticket.getInTime().getTime();
 		long outHour = ticket.getOutTime().getTime();
-		System.out.println(inHour);
-		System.out.println(outHour);
 
+//		creation d'une variable pour avoir lça duree en milliseconde
 		double durationMs = outHour - inHour;
+//		coefficient de division des milliseconde pour passer en heure
 		double msToHours = 1000 * 60 * 60;
 
-		System.out.println(durationMs);
-		System.out.println(msToHours);
+//		calcul de la duree en heure, de type double, non arrondi
 		double duration = durationMs / msToHours;
-		System.out.println(duration);
 
 		if (duration < 0.5) {
 			ticket.setPrice(0);
