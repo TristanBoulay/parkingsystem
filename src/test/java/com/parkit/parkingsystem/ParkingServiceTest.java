@@ -65,6 +65,7 @@ public class ParkingServiceTest {
 		verify(parkingSpotDAO, Mockito.times(1)).updateParking(any(ParkingSpot.class));
 	}
 
+//	premier essai de test
 	@Test
 	public void calculateDiscountForRegularUser() {
 		Date dateIn = new Date("12/12/2000 10h");
