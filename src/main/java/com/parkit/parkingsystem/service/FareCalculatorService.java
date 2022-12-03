@@ -17,6 +17,7 @@ public class FareCalculatorService {
 		double msToHours = 1000 * 60 * 60;
 
 		double duration = durationMs / msToHours;
+//		creation d'une variable qui arrondi duration a deux decimales près
 		double durationAr = Math.round(duration * 100.0) / 100.0;
 
 		if (durationAr < 0.5) {
