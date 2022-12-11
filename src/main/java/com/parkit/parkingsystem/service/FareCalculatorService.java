@@ -22,7 +22,9 @@ public class FareCalculatorService {
 //		calcul de la duree en heure, de type double, non arrondi
 		double duration = durationMs / msToHours;
 
-//		integration de free 30 min parking
+//		integration de free 30 min gratuite de parking
+//		en etablissant la condition
+
 		if (duration < 0.5) {
 			ticket.setPrice(0);
 			return;
