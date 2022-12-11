@@ -9,6 +9,8 @@ public class Ticket {
 	private double price;
 	private Date inTime;
 	private Date outTime;
+
+//	Ajout d'un attribut de type boolean a Ticket
 	private boolean alreadyVisited;
 
 	public boolean isAlreadyVisited() {
