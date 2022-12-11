@@ -68,16 +68,25 @@ public class ParkingServiceTest {
 		mockTicket.setVehicleRegNumber("ABCDEF");
 		mockTicket.setAlreadyVisited(true);
 
-//		on simule l'entrée d'un vehicule en utilisant un mock
+//		on crée un mock de ticket:quand geticket est appelé on retourne mockticket
 
 		when(ticketDAO.getTicket(anyString())).thenReturn(mockTicket);
 
+//		on simule l'entrée d'un vehicule en utilisant un mock
+//		quand la methode processIncomingVehicle est appelée on renvoi un ticket existant
+//		(mockticket)pour tester quand une voiture est deja venue
+
 		parkingService.processIncomingVehicle(dateIn.getTime());
+
+//		on prepare les nouveaux mock pour simuler la sortie du vehicule
+//		processExitingVehicle
 
 		when(ticketDAO.getTicket(anyString())).thenReturn(mockTicket);
 		when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
 		when(parkingSpotDAO.updateParking(any(ParkingSpot.class))).thenReturn(true);
 
+//		on definit une date de sortie et on va assert sur le prix
+//		la date de sortie est prevue dix heures apres, ce qui donne un prix de 14,25
 		Calendar dateOut = Calendar.getInstance();
 		dateOut.set(2005, 6, 8, 22, 0, 0);
 

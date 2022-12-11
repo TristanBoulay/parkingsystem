@@ -32,6 +32,10 @@ public class FareCalculatorService {
 			System.out.println(price);
 			System.out.println("duration :");
 			System.out.println(durationAr);
+
+//			on rajoute une condition si le vehjcule
+//			est deja venu , on applique le discount
+
 			if (ticket.isAlreadyVisited()) {
 				price = price - (price * 5 / 100);
 			}
@@ -40,6 +44,10 @@ public class FareCalculatorService {
 		}
 		case BIKE: {
 			double price = durationAr * Fare.BIKE_RATE_PER_HOUR;
+
+//			on rajoute une condition si le velo
+//			est deja venu , on applique le discount
+
 			if (ticket.isAlreadyVisited()) {
 				price = price - (price * 5 / 100);
 			}

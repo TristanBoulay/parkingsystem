@@ -35,7 +35,11 @@ public class ParkingService {
 				String vehicleRegNumber = this.getVehichleRegNumber();
 
 				boolean alreadyVisited = false;
+
+//				on verifie si il existe un ticket avec la plaque d'immatriculation
 				Ticket existingTicket = this.ticketDAO.getTicket(vehicleRegNumber);
+
+//				si il est deja existant le vehicule est deja venu dans le parking
 				if (existingTicket != null) {
 					alreadyVisited = true;
 				}
@@ -45,15 +49,18 @@ public class ParkingService {
 																// false
 
 				Ticket ticket = new Ticket();
-				// ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
-				// ticket.setId(ticketID);
+
 				ticket.setParkingSpot(parkingSpot);
 				ticket.setVehicleRegNumber(vehicleRegNumber);
 				ticket.setPrice(0);
 				ticket.setInTime(dateIn);
 				ticket.setOutTime(null);
+//				ajout de l'appel de la methode setAlreadyVisited
 				ticket.setAlreadyVisited(alreadyVisited);
 				this.ticketDAO.saveTicket(ticket);
+
+//				on rajoute une condition pour afficher un message:
+//				Si le vehicule a deja visite le parking il recevra le discount
 				if (alreadyVisited) {
 					System.out.println(
 							"Welcome back! As a recurring user of our parking lot, you'll benefit from a 5% discount.");
