@@ -55,12 +55,20 @@ public class ParkingServiceTest {
 		Calendar dateIn = Calendar.getInstance();
 		dateIn.set(2005, 6, 8, 12, 0, 0);
 
+//		instancier une place de parking et un ticket pour le test
+
 		ParkingSpot mockParkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 		Ticket mockTicket = new Ticket();
+
+//		creation de la date d'entrée et de la place de parking,
+//		la plaque et instaurer que la voiture a deja visite le parking
+
 		mockTicket.setInTime(dateIn.getTime());
 		mockTicket.setParkingSpot(mockParkingSpot);
 		mockTicket.setVehicleRegNumber("ABCDEF");
 		mockTicket.setAlreadyVisited(true);
+
+//		on simule l'entrée d'un vehicule en utilisant un mock
 
 		when(ticketDAO.getTicket(anyString())).thenReturn(mockTicket);
 
