@@ -85,7 +85,9 @@ public class ParkingService {
 		ParkingSpot parkingSpot = null;
 		try {
 			ParkingType parkingType = this.getVehichleType();
+			System.out.println(parkingType);
 			parkingNumber = this.parkingSpotDAO.getNextAvailableSlot(parkingType);
+			System.out.println(parkingNumber);
 			if (parkingNumber > 0) {
 				parkingSpot = new ParkingSpot(parkingNumber, parkingType, true);
 			} else {
